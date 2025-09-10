@@ -103,11 +103,30 @@ bool removeFront(User*& head) {
 
 }
 
-
+//Remove by Username runtime: O(n)//
 bool removeByUsername(User*& head, const string& username) {
-    // TODO: implement
     
-    return false;
+    if(head == nullptr){
+        return false;
+    }
+
+    if(head->username == username){
+        User* temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+    }
+    
+    User* current = head;
+    while(current != nullptr){
+        if(current->next->username == username){
+            User* temp = current->next;
+            current = current->next->next;
+            delete temp;
+            return true;
+        }
+        current = current->next;
+    }
 }
 
 // Deletes ALL nodes and sets head=nullptr. 
