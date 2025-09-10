@@ -62,9 +62,16 @@ bool insertUser(User*& head, const string& username, const string& password) {
     return true;
 }
 
-// Returns pointer to the node with matching username; otherwise nullptr.
+// Find User runtime : O(n) //
 User* findUser(User* head, const string& username) {
-    // TODO: implement
+    
+    User* current = head;
+    while(current != nullptr){
+        if(current->username == username){
+            return current;
+        }
+        current = current->next;
+    }
     
     return nullptr;
 }
