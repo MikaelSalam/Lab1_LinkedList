@@ -28,8 +28,57 @@ void printUsers(User* head );
 
 int main() {
   
-    // Write code here to test your implementation
+    User* head = nullptr;
+
+    insertUser(head,"Jake","51015");
+    insertUser(head,"Sam","@2025");
+    insertUser(head,"Kile","12345");
+    insertUser(head,"Andy","@nDy1");
+    insertUser(head,"Olivia","01ivi@");
+
+    cout << "User List: " <<endl;
+    printUsers(head);
+    cout << endl;
+
+    cout << "Finding User \n" ;
+    User* user = findUser(head,"Sam");
+    if(user != nullptr){
+        cout << "User Found : " << user -> username <<endl;
+    }else{
+        cout << "User Not Found "<< endl;
+    }
+    cout << endl;
+
+    cout << "Authenticate. \n";
+    cout << "Authenticate Jake / 51015 : " << (authenticate (head, "Jake", "51015" )? "Success" : "Fail" ) <<endl;
+    cout << "Authenticate Will / Wi11y : " << (authenticate (head, "Will", "W1lly" )? "Success" : "Fail" ) <<endl;
+    cout << endl;
+
+    cout << "Removing Front. \n";
+    cout << "List Before Removing Front. \n";
+    printUsers(head);
+    removeFront(head);
+    cout << "List after removing front : \n";
+    printUsers(head);
+    cout << endl;
+
+    cout << "Removing By Username. \n";
+    removeByUsername(head , "Andy");
+    cout << "List after removing by username : \n";
+    printUsers(head);
+    cout << endl;
     
+
+    cout << "Counting List. \n";
+    cout << "Size of list : "<< size(head) << endl;
+    cout << endl;
+
+    cout << "Clearing List. \n";
+    clearList(head);
+    cout << "List after clearing list : "<< endl;
+    printUsers(head);
+
+
     return 0;
 }
 
@@ -111,22 +160,23 @@ bool removeByUsername(User*& head, const string& username) {
     }
 
     if(head->username == username){
-        User* temp = head;
+        User*temp = head;
         head = head->next;
         delete temp;
         return true;
     }
     
     User* current = head;
-    while(current != nullptr){
-        if(current->next->username == username){
-            User* temp = current->next;
-            current = current->next->next;
+    while(current -> next != nullptr){
+        if(current -> next -> username == username){
+            User* temp = current -> next;
+            current -> next = current -> next -> next;
             delete temp;
             return true;
         }
         current = current->next;
     }
+    return false;
 }
 
 // Clearlist runtime: O(n)//
@@ -164,9 +214,9 @@ void printUsers(User* head) {
     }
 
     while(current != nullptr){
-        cout << current -> username <<endl;
+        cout << current -> username ;
         if(current -> next != nullptr){
-            cout << "->" ;
+            cout << " -> " ;
         }
         current = current -> next;
     }
