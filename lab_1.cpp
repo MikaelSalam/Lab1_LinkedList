@@ -129,10 +129,16 @@ bool removeByUsername(User*& head, const string& username) {
     }
 }
 
-// Deletes ALL nodes and sets head=nullptr. 
+// Clearlist runtime: O(n)//
 void clearList(User*& head) {
-    // TODO: implement
     
+    User* current = head;
+    while(current != nullptr){
+        User* temp = current->next;
+        delete current;
+        current = temp;
+    }
+    head = nullptr;
 }
 
 // Returns number of nodes.
